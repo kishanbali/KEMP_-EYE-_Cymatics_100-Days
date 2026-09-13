@@ -1,7 +1,70 @@
-KEMP_EYE_CYMATICS_100_DAYS/
-├── index.html
-├── style.css
-├── app.js
-├── sw.js
-├── manifest.webmanifest
-└── icon.svg
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090b14">
+<meta name="description" content="KEMP EYE Cymatics — 15-Day Sound, Vibration & Embodiment Tracker">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="style.css">
+<title>KEMP EYE 👁 Cymatics</title>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><span class="eye">👁</span><div><b>KEMP EYE</b><small>CYMATICS</small></div></div>
+  <button id="installBtn" class="ghost" hidden>Install</button>
+</header>
+
+<main>
+<section class="hero">
+  <p class="eyebrow">15-DAY SOUND JOURNEY</p>
+  <h1>Hear it.<br><em>Feel it.</em><br>See the vibration.</h1>
+  <p class="sub">A simple daily experience with sound, visible vibration and embodiment. No diary. No personal data collection.</p>
+  <div class="cymatic">
+    <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+    <div class="core"></div>
+  </div>
+</section>
+
+<section class="card today">
+  <div class="row"><span id="dayLabel">DAY 1</span><span id="progress">1 / 15</span></div>
+  <h2 id="title">Arrive in Sound</h2>
+  <p id="guidance">Sit comfortably. Play a gentle, safe acoustic sound. Let the sound arrive before you try to interpret it.</p>
+  <div class="experience">
+    <div class="step"><span>01</span><b>HEAR</b><small>Listen without searching for meaning.</small></div>
+    <div class="step"><span>02</span><b>FEEL</b><small>Notice vibration in the body.</small></div>
+    <div class="step"><span>03</span><b>SEE</b><small>Watch the cymatic pattern change.</small></div>
+    <div class="step"><span>04</span><b>EMBODY</b><small>Place one hand on your chest for 10 minutes.</small></div>
+  </div>
+  <button id="complete" class="primary">✓ Mark today's experience complete</button>
+  <button id="next" class="secondary">Continue to next day →</button>
+</section>
+
+<section class="card">
+  <div class="row"><h2>Your Journey</h2><span id="count">0 completed</span></div>
+  <div id="days" class="days"></div>
+</section>
+
+<section class="card ai">
+  <p class="eyebrow">KEMP EYE AI 👁</p>
+  <h2>Next experience</h2>
+  <p id="aiText">Complete today's experience. Then return here for the next guided step.</p>
+</section>
+
+<section class="card note">
+  <h2>What is Cymatics?</h2>
+  <p>Cymatics is a way of making vibration visible through physical media such as water, sand or a vibrating surface. The pattern is a physical demonstration of vibration. Any spiritual or consciousness-based meaning in this journey is offered as personal exploration, not as a scientific claim.</p>
+</section>
+
+<section class="card safety">
+  <h2>Health & Safety</h2>
+  <p>Keep sound at a comfortable level. Stop if you feel pain, dizziness, headache, distress or unusual discomfort. Do not use intense sound close to the ears. This tracker is for wellbeing and experiential exploration, not medical treatment.</p>
+</section>
+</main>
+<footer>KEMP Wisdom Publications · KEMP EYE 👁 · Your experience stays on this device.</footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

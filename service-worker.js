@@ -1,5 +1,5 @@
-const CACHE='kemp-cymatics-pwa-v2';
+const CACHE='kemp-cymatics-pwa-v3';
 const CORE=['./','./index.html','./manifest.json','./icon-192.svg','./icon-512.svg'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
-self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(event.request,copy));return r}).catch(()=>cached)))});
+self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;event.respondWith((async()=>{let response=await caches.match(event.request);if(!response){try{response=await fetch(event.request);const copy=response.clone();caches.open(CACHE).then(c=>c.put(event.request,copy))}catch(e){return response}}if(event.request.destination==='document'&&response){const text=await response.clone().text();const patched=text.replace('</style>','@media(max-width:480px){#tone{display:none!important}}</style>');if(patched!==text)return new Response(patched,{status:response.status,statusText:response.statusText,headers:response.headers})}return response})())});

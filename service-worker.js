@@ -1,5 +1,7 @@
-const CACHE='kemp-cymatics-pwa-v2';
+const CACHE='kemp-cymatics-pwa-v3';
 const CORE=['./','./index.html','./manifest.json','./icon-192.svg','./icon-512.svg'];
+const OLD_START="start.onclick=()=>{if(running)return;running=true;start.textContent='EXPERIENCE RUNNING';startAudio();last=0;requestAnimationFrame(tick);cancelAnimationFrame(raf);draw()}";
+const NEW_START="start.onclick=()=>{if(running){running=false;stopAudio();cancelAnimationFrame(raf);start.textContent='BEGIN EXPERIENCE';tone.textContent='SOUND OFF';return}running=true;start.textContent='EXPERIENCE RUNNING';startAudio();last=0;requestAnimationFrame(tick);cancelAnimationFrame(raf);draw()}";
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
-self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(event.request,copy));return r}).catch(()=>cached)))});
+self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;event.respondWith((async()=>{let response=await caches.match(event.request);if(!response){try{response=await fetch(event.request);const copy=response.clone();caches.open(CACHE).then(c=>c.put(event.request,copy))}catch(e){return response}}if(event.request.destination==='document'&&response){const text=await response.clone().text();const patched=text.replace(OLD_START,NEW_START);if(patched!==text)return new Response(patched,{status:response.status,statusText:response.statusText,headers:response.headers})}return response})())});
